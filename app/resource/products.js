@@ -8,7 +8,7 @@ iris.resource(function (self) {
 	}
 
 	self.loadSaved = function () {
-		/*var idsSaved = localStorage.getItem("ids");
+		var idsSaved = localStorage.getItem("ids");
 		if ( idsSaved ) {
 			ids = idsSaved.split(",");
 
@@ -25,7 +25,7 @@ iris.resource(function (self) {
 
 				iris.notify("add_product", {product: product});
 			}
-		}*/
+		}
 	};
 
 	self.add = function (name) {
