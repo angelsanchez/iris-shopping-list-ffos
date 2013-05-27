@@ -1,0 +1,14 @@
+{
+  "name": "IrisShoppingList",
+  "description": "Firefox OS app example to manage the shopping list using the Iris framework.",
+  "launch_path": "/index.html",
+  "icons": {
+    "128": "/img/icon-128.png"
+  },
+  "developer": {
+    "name": "d3b4s",
+    "url": "https://github.com/d3b4s"
+  },
+  "default_locale": "en",
+  "installs_allowed_from": ["*"]
+}
