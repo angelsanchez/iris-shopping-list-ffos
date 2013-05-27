@@ -14,6 +14,10 @@ iris.screen(function(self) {
         self.on("add_product", onAddProduct);
         self.on("delete_product", onDeleteProduct);
         self.on("toggle_product", render);
+
+        // Load the products saved previously
+        products.loadSaved();
+        render();
     };
 
     // User events
@@ -45,6 +49,12 @@ iris.screen(function(self) {
             self.get("delete_toolbar").show();
         } else {
             self.get("delete_toolbar").hide();
+        }
+
+        if ( products.total() > 0 ) {
+            self.get("empty_list_msg").hide();
+        } else {
+            self.get("empty_list_msg").show();
         }
 
         self.get("products_count").text("(" + products.total() + ")");
