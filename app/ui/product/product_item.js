@@ -13,10 +13,21 @@ iris.ui(function (self) {
 
 		self.get("switcher").on("change", switcherOnChange);
 
+		render();
 	};
 
 	function switcherOnChange () {
 		iris.resource(iris.path.products).toggle( self.setting("product").id );
+		self.setting("product.checked", !self.setting("product").checked);
+		render();
+	}
+
+	function render () {
+		if ( self.setting("product").checked ) {
+			self.get().addClass("product-checked");
+		} else {
+			self.get().removeClass("product-checked");
+		}
 	}
 
 },iris.path.product_item.js);

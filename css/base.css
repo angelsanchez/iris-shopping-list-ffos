@@ -1,3 +1,32 @@
+body {
+  background-image: url("./base/bg.png");
+  color: #f0f0f0;
+}
+
+/* ----------------------------------
+* Product Item
+* ---------------------------------- */
+.product-item {
+  position: relative;
+  border-bottom: 1px solid #333;
+}
+
+.product-item label {
+  position: absolute;
+  right: 5px;
+  margin-right: 10px;
+}
+
+.product-item span {
+  line-height: 60px;
+  margin-left: 10px;
+}
+
+.product-checked {
+  color: #777;
+}
+
+
 /* ----------------------------------
 * Toolbars
 * ---------------------------------- */
