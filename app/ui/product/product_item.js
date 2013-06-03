@@ -1,29 +1,39 @@
 iris.ui(function (self) {
 
 	self.settings({
-		product : null
+		productId : null
 	});
+
+	var products = iris.resource(iris.path.products);
 
 	self.create = function() {
 		
 		self.tmplMode(self.APPEND);
 		self.tmpl(iris.path.product_item.html);
 
-		self.inflate( self.setting("product") );
+		self.inflate({
+			product : product()
+		});
 
 		self.get("switcher").on("change", switcherOnChange);
 
 		render();
 	};
 
+	// Get product data from the product resource
+	function product() {
+		return products.get( self.setting("productId") );
+	}
+
+	// User events
 	function switcherOnChange () {
-		iris.resource(iris.path.products).toggle( self.setting("product").id );
-		self.setting("product.checked", !self.setting("product").checked);
+		products.toggle( self.setting("productId") );
 		render();
 	}
 
+	// Update screen interface using the product resource
 	function render () {
-		if ( self.setting("product").checked ) {
+		if ( product().checked ) {
 			self.get().addClass("product-checked");
 		} else {
 			self.get().removeClass("product-checked");

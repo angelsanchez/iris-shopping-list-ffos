@@ -1,6 +1,8 @@
 iris.screen(function(self) {
 
-    var productUIs = {}, products = iris.resource(iris.path.products);
+    var products = iris.resource(iris.path.products);
+
+    var productUIs = {};
 
     self.create = function() {
         self.tmpl(iris.path.product_list.html);
@@ -13,6 +15,7 @@ iris.screen(function(self) {
         // Product resource events
         self.on("add_product", onAddProduct);
         self.on("delete_product", onDeleteProduct);
+        self.on("delete_checked_products", render);
         self.on("toggle_product", render);
 
         // Load the products saved previously
@@ -31,13 +34,15 @@ iris.screen(function(self) {
 
     // Resource events
     function onAddProduct (event) {
-        var ui = self.ui("products", iris.path.product_item.js, {product: event.product});
-        productUIs[event.product.id] = ui;
+        var ui = self.ui("products",
+            iris.path.product_item.js,
+            {productId: event.productId});
+        productUIs[event.productId] = ui;
         render();
     }
 
     function onDeleteProduct (event) {
-        self.destroyUI(productUIs[event.productId]);
+        productUIs[event.productId].destroyUI();
         productUIs[event.productId] = null;
         delete productUIs[event.productId];
         render();

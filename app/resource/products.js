@@ -11,32 +11,36 @@ iris.resource(function (self) {
 		var idsSaved = localStorage.getItem("ids");
 		if ( idsSaved ) {
 			ids = idsSaved.split(",");
+		}
 
-			var productString, product, f, F;
-			for (f = 0, F = ids.length; f < F; f++) {
-				productString = localStorage.getItem("product_" + ids[f]);
-				product = JSON.parse(productString);
-				products[product.id] = product;
-				console.log("Loading product[" + productString + "]");
+		var productString, product, f, F;
+		for (f = 0, F = ids.length; f < F; f++) {
+			productString = localStorage.getItem("product_" + ids[f]);
+			product = JSON.parse(productString);
+			products[product.id] = product;
+			console.log("Loading product[" + productString + "]");
 
-				if ( product.checked ) {
-					numCheckedProducts++;
-				}
-
-				iris.notify("add_product", {product: product});
+			if ( product.checked ) {
+				numCheckedProducts++;
 			}
+
+			iris.notify("add_product", {productId: product.id});
 		}
 	};
 
 	self.add = function (name) {
-		var product = {id: new Date().getTime().toString(), text: name, checked: false};
-		products[product.id] = product;
+		var id = new Date().getTime().toString();
+		var product = {id: id, text: name, checked: false};
+		products[id] = product;
 		save(product);
 
-		ids.push(product.id);
+		ids.push(id);
 		localStorage.setItem("ids" , ids.join(","));
-		
-		iris.notify("add_product", {product: product});
+		iris.notify("add_product", {productId: id});
+	};
+
+	self.get = function (id) {
+		return products[id];
 	};
 
 	self.toggle = function (id) {
@@ -60,13 +64,11 @@ iris.resource(function (self) {
 				
 				var key = "product_" + id;
 				localStorage.removeItem(key);
-				console.log("0 id["+id+"] -> "+ids.length+"_"+ids.join(","))	
+
 				ids.splice(ids.indexOf(id), 1);
-				console.log("1 id["+id+"] -> "+ids.length+"_"+ids.join(","))	
-
 				numCheckedProducts--;
-
-				iris.notify("delete_product", {productId: id});
+				
+				iris.notify("delete_product", {productId : id});
 			}
 		}
 		localStorage.setItem("ids" , ids.join(","));
