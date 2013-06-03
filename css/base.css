@@ -3,6 +3,11 @@ body {
   color: #f0f0f0;
 }
 
+.emptyMsg {
+  margin: 50px auto;
+  text-align:center;
+}
+
 /* ----------------------------------
 * Product Item
 * ---------------------------------- */
